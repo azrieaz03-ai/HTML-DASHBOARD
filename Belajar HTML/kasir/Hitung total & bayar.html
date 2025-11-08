@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kasir - Input Penjualan | Almeera Bakery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      background-color: #f5f5f5;
+      height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background-color: #1c1c1c;
+      color: white;
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 15px;
+    }
+
+    .sidebar .logo {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .sidebar .logo img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .logo h2 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      font-size: 1em;
+      gap: 10px;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #3A7FFD;
+      color: #fff;
+    }
+
+    .sidebar a img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .sidebar hr {
+      border: 0.5px solid #555;
+      width: 90%;
+      margin: 20px 0;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex-grow: 1;
+      padding: 20px 40px;
+      background-color: #fdfdfd;
+      overflow-y: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    header h1 {
+      font-weight: 700;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-info img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* FORM PENJUALAN */
+    .container {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .container h2 {
+      text-align: center;
+      color: #3A7FFD;
+      font-size: 1.8em;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 2px solid black;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #3A7FFD;
+      color: white;
+    }
+
+    input, button {
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    button {
+      background: #3A7FFD;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .flex label {
+      min-width: 120px;
+    }
+
+    .hasil {
+      background-color: #f0f8ff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../images/logo.png" alt="Logo Almeera Bakery">
+      <h2>Almeera<br>Bakery</h2>
+    </div>
+
+    <a href="/kasir/data produksi kasir.html">
+      <img src="../images/menu1.png" alt="Menu Data">
+      Data Produksi
+    </a>
+    <a href="/kasir/input penjualan.html" style="background-color:#3A7FFD;">
+      <img src="../images/menu4.png" alt="Menu Hitung">
+      Input Penjualan
+    </a>
+    <hr>
+    <a href="../login/login.html">
+      <img src="../images/menu3.png" alt="Logout">
+      Keluar
+    </a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <header>
+      <h1>Input Penjualan</h1>
+      <div class="user-info">
+        <strong>kasir</strong>
+        <img src="../images/bergas.png" alt="Kasir">
+      </div>
+    </header>
+
+    <div class="container">
+      <h2>🛒 Input Penjualan</h2>
+
+      <form id="penjualanForm">
+        <table>
+          <tr>
+            <th>Jenis Roti</th>
+            <th>Harga Satuan (Rp)</th>
+            <th>Jumlah Dibeli</th>
+          </tr>
+          <tr>
+            <td>Roti Coklat</td>
+            <td><input type="number" id="harga_coklat" value="5000"></td>
+            <td><input type="number" id="jumlah_coklat" value="0"></td>
+          </tr>
+          <tr>
+            <td>Roti Keju</td>
+            <td><input type="number" id="harga_keju" value="6000"></td>
+            <td><input type="number" id="jumlah_keju" value="0"></td>
+          </tr>
+          <tr>
+            <td>Roti Manis</td>
+            <td><input type="number" id="harga_manis" value="5500"></td>
+            <td><input type="number" id="jumlah_manis" value="0"></td>
+          </tr>
+          <tr>
+            <td>Roti Tawar</td>
+            <td><input type="number" id="harga_tawar" value="7000"></td>
+            <td><input type="number" id="jumlah_tawar" value="0"></td>
+          </tr>
+        </table>
+
+        <div class="flex">
+          <label>Total Harga:</label>
+          <span id="totalHarga">Rp 0</span>
+        </div>
+
+        <div class="flex">
+          <label>Bayar:</label>
+          <input type="number" id="bayar" value="0">
+        </div>
+
+        <div class="flex">
+          <label>Kembalian:</label>
+          <span id="kembalian">Rp 0</span>
+        </div>
+
+        <button type="button" onclick="hitungTotal()">Hitung Total & Kembalian</button>
+      </form>
+
+      <div id="hasil" class="hasil" style="display:none;">
+        <h3>💰 Hasil Pembayaran</h3>
+        <p id="hasilTotal"></p>
+        <p id="hasilBayar"></p>
+        <p id="hasilKembali"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function hitungTotal() {
+      const harga = {
+        coklat: parseInt(document.getElementById("harga_coklat").value) || 0,
+        keju: parseInt(document.getElementById("harga_keju").value) || 0,
+        manis: parseInt(document.getElementById("harga_manis").value) || 0,
+        tawar: parseInt(document.getElementById("harga_tawar").value) || 0
+      };
+
+      const jumlah = {
+        coklat: parseInt(document.getElementById("jumlah_coklat").value) || 0,
+        keju: parseInt(document.getElementById("jumlah_keju").value) || 0,
+        manis: parseInt(document.getElementById("jumlah_manis").value) || 0,
+        tawar: parseInt(document.getElementById("jumlah_tawar").value) || 0
+      };
+
+      const total = (harga.coklat * jumlah.coklat) + 
+                    (harga.keju * jumlah.keju) + 
+                    (harga.manis * jumlah.manis) + 
+                    (harga.tawar * jumlah.tawar);
+
+      document.getElementById("totalHarga").innerText = "Rp " + total.toLocaleString();
+
+      const bayar = parseInt(document.getElementById("bayar").value) || 0;
+      const kembali = bayar - total;
+      document.getElementById("kembalian").innerText = "Rp " + (kembali > 0 ? kembali.toLocaleString() : 0);
+
+      // tampilkan hasil
+      document.getElementById("hasil").style.display = "block";
+      document.getElementById("hasilTotal").innerText = "Total Harga: Rp " + total.toLocaleString();
+      document.getElementById("hasilBayar").innerText = "Bayar: Rp " + bayar.toLocaleString();
+      document.getElementById("hasilKembali").innerText = "Kembalian: Rp " + (kembali > 0 ? kembali.toLocaleString() : 0);
+    }
+  </script>
+
+</body>
+</html>

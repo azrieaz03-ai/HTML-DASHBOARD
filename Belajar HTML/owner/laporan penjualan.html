@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Laporan Penjualan - Almeera Bakery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      background-color: #f5f5f5;
+      height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background-color: #1c1c1c;
+      color: white;
+      width: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 15px;
+    }
+
+    .sidebar .logo {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .sidebar .logo img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .logo h2 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      font-size: 1em;
+      gap: 10px;
+    }
+
+    .sidebar a:hover {
+      background-color: #f4a261;
+      color: #1c1c1c;
+    }
+
+    .sidebar a img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .sidebar hr {
+      border: 0.5px solid #555;
+      width: 90%;
+      margin: 20px 0;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex-grow: 1;
+      padding: 20px 40px;
+      background-color: #fdfdfd;
+      overflow-y: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    header h1 {
+      font-weight: 700;
+    }
+
+    .owner-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .owner-info img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* LAPORAN SECTION */
+    .report-container {
+      margin-top: 30px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .report-container h2 {
+      font-size: 1.8em;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .report-container h2 span {
+      color: #f4a261;
+    }
+
+    .filter-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .filter-section input[type="date"],
+    .filter-section select {
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    .filter-section button {
+      background-color: #f4a261;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .filter-section button:hover {
+      background-color: #e76f51;
+      color: white;
+    }
+
+    /* Grafik biar lebih besar dan fleksibel */
+    #salesChart {
+      max-width: 900px;
+      width: 100%;
+      height: 420px;
+      margin: 0 auto;
+    }
+
+    .download-btn {
+      background-color: #e76f51;
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../images/logo.png" alt="Logo Almeera Bakery">
+      <h2>Almeera<br>Bakery</h2>
+    </div>
+
+    <a href="/owner/data produksi.html">
+      <img src="../images/menu1.png" alt="Menu 1">
+      Data Produksi
+    </a>
+    <a href="/owner/laporan penjualan.html">
+      <img src="../images/menu2.png" alt="Menu 2">
+      Laporan Penjualan
+    </a>
+    <hr>
+    <a href="../login/login.html">
+      <img src="../images/menu3.png" alt="Menu 3">
+      Keluar
+    </a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <header>
+      <h1>Laporan Penjualan</h1>
+      <div class="owner-info">
+        <strong>owner</strong>
+        <img src="../images/profile.png" alt="Owner">
+      </div>
+    </header>
+
+    <div class="report-container">
+      <h2>LAPORAN <span>PENJUALAN</span></h2>
+
+      <div class="filter-section">
+        <input type="date" id="tanggal" value="{{ selected_tanggal }}">
+        <select id="periode">
+          <option value="7">Kumulatif 7 Hari</option>
+          <option value="30" selected>Kumulatif 30 Hari</option>
+          <option value="90">Kumulatif 90 Hari</option>
+        </select>
+        <button onclick="lihatData()">Lihat Data</button>
+        <button class="download-btn" onclick="window.location.href='/download_csv'">Download CSV</button>
+      </div>
+
+      <canvas id="salesChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    let chart;
+
+    async function fetchData() {
+      const tanggal = document.getElementById('tanggal').value;
+      const mode = "hari";
+      const res = await fetch(`/api/data_owner?tanggal=${tanggal}&mode=${mode}`);
+      return await res.json();
+    }
+
+    async function lihatData() {
+      const data = await fetchData();
+      const ctx = document.getElementById('salesChart').getContext('2d');
+      const colors = ['#f77f00', '#ffbe0b', '#fcbf49', '#d62828', '#8ecae6'];
+
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels_chart,
+          datasets: [{
+            label: 'Jumlah Terjual',
+            data: data.values_chart,
+            backgroundColor: colors.slice(0, data.labels_chart.length),
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { beginAtZero: true } },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", lihatData);
+  </script>
+
+</body>
+</html>
